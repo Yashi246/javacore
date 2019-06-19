@@ -1,0 +1,350 @@
+package cg;
+import java.util.*;
+import java.io.*;
+import com.cg.bean.*;
+import com.cg.service.*;
+public class Demo5 {
+public static void main(String[] args) throws IOException {
+	Map<Long,Account> accmap=new TreeMap<Long,Account>();//sorted
+	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	String choice ="";
+	while(true) {
+	System.out.println("menu");
+	System.out.println("=====");
+	System.out.println("1 create new Account");
+	System.out.println("2 print all accounts");
+	System.out.println("exit");
+	System.out.println("enter your choice");
+	choice=br.readLine();
+	switch(choice)
+	
+	{
+	case "1":
+		break;
+	case "2":
+		break;
+	case "3": System.out.println("exiting program");
+	System.exit(0);
+		break;
+		
+		default:
+			System.out.println("invalid choice");
+	}
+	} //end of menu
+	
+	/*
+	 * System.out.println(accmap);
+	 
+	System.out.println(accmap.keySet());
+	Collection<Account> vc = accmap.values();
+	List<Account> acclist = new ArrayList<Account>(vc);
+	Collections.sort(acclist);
+	for(Account o:acclist)
+	{
+		System.out.println(o);
+	}
+	System.out.println("sort by name");
+	Comparator nc= new NameComparator();
+	Collections.sort(acclist,nc);
+	for(Account o: acclist)
+	{
+		System.out.println(o);
+	}
+	System.out.println("sort by balance");
+	Comparator bc= new BalanceComparator();
+	Collections.sort(acclist,bc);
+	for(Account o: acclist)
+	{
+		System.out.println(o);
+	}
+	
+	/*
+	 Set<Account> aset = new TreeSet<Account>();
+	 aset.add(Account object);//compare method of NameComparator//default
+	aset.add(Account object);*/
+	 
+	 
+	
+	/* Comparator nc = new NameComparator();
+	  Set<Account> aset = new TreeSet<Account>();
+	 
+	aset.add(Account object);//compare method of NameComparator //custom
+	aset.add(Account object);*/
+	
+}
+}
+====================================================================================
+package com.cg.service;
+
+public interface Validator {
+String aidpattern ="\\d[1-9] {1}[0-9] {3}";
+String mobilepattern= "\\d[1-9]{1}[0-9] {9}";
+public static boolean validatedata(String data, String pattern)
+{
+	return data.matches(pattern);
+}
+}
+========================================================================================
+package cg;
+import java.util.*;
+public class Demo1 {
+
+	public static void main(String[] args) {
+		// non-generic collection
+	Set col=new HashSet();
+	col.add("Ram");
+	col.add("Shyam");
+	col.add("Abdul");
+	col.add(55); //new integer 55 //auto boxing
+    col.add(null);
+    col.add("Ganesh");
+    col.add("Ram");
+    System.out.println(col);
+    System.out.println(col.size());
+	}
+
+}
+======================================================================================
+package cg;
+import java.util.*;
+public class Demo2 {
+
+	public static void main(String[] args) {
+		// non-generic collection
+	//Set<String> col=new HashSet<String>();
+		//Set<String> col=new LinkedHashSet<String>(); //ordered => maintains insertion order
+		//Set<String> col=new TreeSet<String>(); //does not accept null as object throws null pointer exception and alphabetically ordered
+		//no insertion ordered and yet sorted elements
+		List<String> col=new ArrayList<String>(); //generic ordered sorted and repition or dublicaton is allowed
+		col.add("Ram");
+	col.add("Shyam");
+	col.add("Abdul");
+	 //col.add(55); //new integer 55 //auto boxing
+    col.add(null);
+    col.add("Ganesh");
+    col.add("Ram");
+    System.out.println(col);
+    System.out.println(col.size());
+    System.out.println("=============================");
+    for(String s: col)
+    {
+    	System.out.println(s);
+    	Iterator<String> it=col.iterator();
+    	while(it.hasNext())
+    	{
+    		String ss=it.next();
+    		System.out.println(ss);
+    	}
+    }
+    System.out.println("===============================");
+	}
+
+}
+===========================================================================================
+package cg;
+import java.util.*;
+
+
+public class Demo3 {
+	public static void main(String[] args) {
+		//Map<String,Double> m= new HashMap<String,Double>();
+		Map<String,Double> m= new TreeMap<String,Double>();//does not accept the null as a key
+		m.put("Ram", 5000.00);
+		m.put("Shyam", 7000.00);
+		m.put("Abdul", 9000.00);
+		m.put("Ganesh", 4000.00);
+		//m.put(null, 5000.00);
+		System.out.println(m);
+		System.out.println(m.size());
+		Set<String> keysSet=m.keySet();
+		System.out.println(keysSet);
+		for(String k:keysSet)
+		{
+			Double val=m.get(k);
+			System.out.println(k +"has balanc of rupees " +val);
+		}
+		System.out.println("========================================");
+		
+	Double bal = m.get("Shyam");
+	System.out.println("before balance:" +bal);
+	bal=bal=3000.00; //unboxing
+	
+	m.put("Shyam",bal );
+	 bal = m.get("Shyam");
+	 System.out.println("after balance:" +bal);
+	 Collection<Double> vals=m.values();
+	 List<Double> vallist = new ArrayList<Double>(vals);
+	 Collections.sort(vallist);
+	 for (double d:vallist)
+	 {
+		 System.out.println(d);
+	 }
+	}
+
+}
+=============================================================================================
+package cg;
+import java.util.*;
+import com.cg.bean.*;
+
+public class Demo4 {
+public static void main(String[] args) {
+	Map<Long,Account> accmap=new TreeMap<Long,Account>();//sorted
+	Account ob1= new Account(101,703,"Ram",25000.00);
+	accmap.put(ob1.getMobile(), ob1);
+	Account ob2= new Account(102,79033,"Shyam",55000.00);
+	accmap.put(ob2.getMobile(), ob2);
+	Account ob3= new Account(105,7903,"Abdul",15000.00);
+	accmap.put(ob3.getMobile(), ob3);
+	Account ob4= new Account(103,79098,"Ganesh",45000.00);
+	accmap.put(ob4.getMobile(), ob4);
+	System.out.println(accmap);
+	System.out.println(accmap.keySet());
+	Collection<Account> vc = accmap.values();
+	List<Account> acclist = new ArrayList<Account>(vc);
+	Collections.sort(acclist);
+	for(Account o:acclist)
+	{
+		System.out.println(o);
+	}
+	System.out.println("sort by name");
+	Comparator nc= new NameComparator();
+	Collections.sort(acclist,nc);
+	for(Account o: acclist)
+	{
+		System.out.println(o);
+	}
+	System.out.println("sort by balance");
+	Comparator bc= new BalanceComparator();
+	Collections.sort(acclist,bc);
+	for(Account o: acclist)
+	{
+		System.out.println(o);
+	}
+	
+	/*
+	 Set<Account> aset = new TreeSet<Account>();
+	 aset.add(Account object);//compare method of NameComparator//default
+	aset.add(Account object);*/
+	 
+	 
+	
+	/* Comparator nc = new NameComparator();
+	  Set<Account> aset = new TreeSet<Account>();
+	 
+	aset.add(Account object);//compare method of NameComparator //custom
+	aset.add(Account object);*/
+	
+}
+}
+=============================================================================================
+package cg;
+import com.cg.bean.*;
+import java.util.*;
+
+public class NameComparator implements Comparator<Account> {
+
+	@Override
+	public int compare(Account arg0, Account arg1) {
+		// TODO Auto-generated method stub
+		String ah1 =arg0.getAccountholder();
+		String ah2 = arg1.getAccountholder();
+		int a= ah1.compareTo(ah2);
+		return a;
+	}
+
+}
+===============================================================================================
+package com.cg.bean;
+
+public class Account implements Comparable<Account> {
+private int aid;
+private long mobile;
+private String accountholder;
+private double balance;
+public Account()
+{
+	
+}
+public Account(int aid, int mobile, String accountholder, double balance) {
+	super();
+	this.aid = aid;
+	this.mobile = mobile;
+	this.accountholder = accountholder;
+	this.balance = balance;
+}
+
+public int getAid() {
+	return aid;
+}
+public void setAid(int aid) {
+	this.aid = aid;
+}
+public long getMobile() {
+	return mobile;
+}
+public void setMobile(int mobile) {
+	this.mobile = mobile;
+}
+public String getAccountholder() {
+	return accountholder;
+}
+public void setAccountholder(String accountholder) {
+	this.accountholder = accountholder;
+}
+public double getBalance() {
+	return balance;
+}
+public void setBalance(double balance) {
+	this.balance = balance;
+}
+@Override
+public String toString() {
+	return "Account [aid=" + aid + ", mobile=" + mobile + ", accountholder=" + accountholder + ", balance=" + balance
+			+ "]";
+}
+@Override
+public int compareTo(Account arg0) //default sorting based on Account number 
+{
+	// TODO Auto-generated method stub
+	int diff=this.getAid() -arg0.getAid();
+	if(diff>0)
+		return 1;
+	else if(diff<0)
+		return -1;
+	else 
+		return 0;
+	
+}
+}
+================================================================================================================================
+package com.cg.bean;
+
+public class SavingAccount extends Account {
+	private double interest;
+	private double MIN_BALANCE;
+	public double getInterest() {
+		return interest;
+	}
+	public void setInterest(double interest) {
+		this.interest = interest;
+	}
+	public SavingAccount() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public SavingAccount(int aid, int mobile, String accountholder, double balance) {
+		super(aid, mobile, accountholder, balance);
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return super.toString() + "SavingAccount [interest=" + interest + ", MIN_BALANCE=" + MIN_BALANCE + "]";
+	}
+	
+	
+	
+	
+	
+
+}
